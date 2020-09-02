@@ -31,10 +31,11 @@
         </v-btn>
       </v-system-bar>
       <v-card-text id="chat">
-        <Message v-for="currMessage in allMessages" :key="currMessage._id"
+        <Message v-for="(currMessage, index) in allMessages" :key="currMessage._id"
           :isCurrentUser="user.user._id === currMessage.userId"
           :message="currMessage.message"
-          :timestamp="currMessage.formattedDate">
+          :timestamp="currMessage.createdAt"
+          :timestampShown="processTimestamps(currMessage, index, allMessages)">
         </Message>
       </v-card-text>
       <v-divider></v-divider>
@@ -49,7 +50,8 @@
               class="ml-3"
               clear-icon="mdi-close-circle"
               clearable
-              :counter="200"></v-text-field>
+              :counter="200"
+              autofocus></v-text-field>
             <v-btn class="mx-2 mt-4" icon color="primary"
               type="submit" :disabled="!message.message">
               <v-icon large>mdi-send-circle-outline</v-icon>
@@ -109,12 +111,15 @@ export default {
 
       this.message.message = '';
     },
+    processTimestamps(currMessage, index, allMessages) {
+      return index < allMessages.length - 1 ?
+        allMessages[index + 1].userId !== currMessage.userId : true;
+    },
   },
   computed: {
     ...mapState('auth', { user: 'payload' }),
     ...mapGetters('messages', { findMessagesInStore: 'find' }),
     allMessages() {
-      /* Falta o srt by createdAt!!! */
       return this.findMessagesInStore({
         query: {
           $or: [
@@ -127,6 +132,9 @@ export default {
               userId: { $eq: this.targetUser._id },
             },
           ],
+          $sort: {
+            createdAt: 1,
+          },
         },
       }).data;
     },
