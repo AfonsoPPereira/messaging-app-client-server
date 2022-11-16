@@ -1,4 +1,4 @@
-# Messaging Web App
+# Real-Time Chat Web App
 
 ## Project
 
