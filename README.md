@@ -8,6 +8,6 @@
 
 ## Technologies Stacks:
 
-- Vue js (with Vuex and Vuetify) -> Frontend
+- Vue js (with Vuex and Vuetify)
 - Node.js + Feathers.js (for real-time WS communication)
 - Mongoose -> MongoDB
