@@ -1,5 +1,13 @@
-# Social-Media
+# Messaging Web App
 
-Project made in:
+## Project
+
+- Real-time Chat messages exchanging system to other users
+- Check Friend's List
+- Check Friend's status
+
+## Technologies Stacks:
+
 - Vue js (with Vuex and Vuetify) -> Frontend
-- Feathers js (Running on Node js as a base for the server, Mongoose as DB connection) -> Backend
+- Node.js + Feathers.js (for real-time WS communication)
+- Mongoose -> MongoDB
